@@ -16,6 +16,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
+import { TeleportEditor } from './teleport/TeleportEditor.js';
 
 let renderer, scene, camera, controls, wasdControls, composer;
 
@@ -59,9 +60,13 @@ function init() {
 
   // WASD movement, initially disabled (pass camera and OrbitControls!)
   wasdControls = new WASDControls(camera, controls, false);
+  
 
 let teleportSystem;
 teleportSystem = new TeleportSystem(scene, camera, controls, teleportPoints, renderer);
+
+const editor = new TeleportEditor(scene, camera, renderer, teleportSystem.pads);
+  editor.enable();
 
 // const testMat = new THREE.MeshStandardMaterial({ color: 0xff0000, metalness: 0, roughness: 0.2, emissive: 0x440000 });
 // const testGeom = new THREE.BoxGeometry(5, 0.2, 5);  // Large enough!

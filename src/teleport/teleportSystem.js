@@ -47,7 +47,7 @@ export class TeleportSystem {
         emissive: 0x550000
       });
       const mesh = new THREE.Mesh(geom, mat);
-      mesh.position.set(point.position[0], point.circleHeight, point.position[2]);
+      mesh.position.set(point.markerPosition[0], point.markerPosition[1], point.markerPosition[2]);
       mesh.name = `teleport_${point.name}`;
       mesh.castShadow = true;
       mesh.receiveShadow = true;
@@ -66,7 +66,7 @@ export class TeleportSystem {
     const intersects = this.raycaster.intersectObjects(this.pads.map(p => p.mesh));
     if (intersects.length > 0) {
       const { point } = this.pads.find(p => p.mesh === intersects[0].object);
-      this.teleportTo(point.position, point.rotation);
+      this.teleportTo(point.cameraPosition, point.rotation);
       if (typeof this.onTeleport === 'function') this.onTeleport(point);
       console.log(`Teleported to "${point.name}"`);
     }
